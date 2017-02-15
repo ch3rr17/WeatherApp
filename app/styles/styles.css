@@ -1,0 +1,22 @@
+.container.header{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #D3D3D3;
+  border-radius: 4px;
+}
+
+.title{
+  font-weight: bold
+}
+
+.weatherOutput {
+  color: green;
+  font-weight: 700;
+}
+
+.searchResult {
+  background-color: #D3D3D3;
+  border-bottom: 1px solid;
+  margin: 0 auto;
+  padding: 5px;
+}
