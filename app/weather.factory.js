@@ -15,20 +15,19 @@
 
         return service;
 
-
-
+        //Grabs city information
         function grabWeather(city) {
-          var url = 'http://api.openweathermap.org/data/2.5/weather';
+            var url = 'http://api.openweathermap.org/data/2.5/weather';
 
             var defer = $q.defer();
             $http({
                     method: 'GET',
                     url: url,
                     params: {
-                      q: city,
-                      mode: 'json',
-                      units: 'imperial',
-                      appid: '449e9e8cb9237caf839de0f795054053'
+                        q: city,
+                        mode: 'json',
+                        units: 'imperial',
+                        appid: '449e9e8cb9237caf839de0f795054053'
                     }
                 })
                 .then(

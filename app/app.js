@@ -4,6 +4,7 @@
     angular
         .module('weatherApp', [
             'toastr',
-            'angular-momentjs'
+            'angular-momentjs',
+            'ui.toggle'
         ]);
 })();

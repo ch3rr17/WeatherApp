@@ -1,123 +1,125 @@
 <!DOCTYPE html>
-    <html lang="en" ng-app="weatherApp">
-        <head>
-            <meta charset="UTF-8">
-            <title>Weather App</title>
-            <!-- bower:css -->
-            <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-            <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css" />
-            <!-- endbower -->
+<html lang="en" ng-app="weatherApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather App</title>
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css" />
+    <link rel="stylesheet" href="bower_components/angular-bootstrap-toggle/dist/angular-bootstrap-toggle.min.css" />
+    <!-- endbower -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/app/styles/styles.css">
+    <!-- endinject -->
+</head>
 
-            <!-- inject:css -->
-            <link rel="stylesheet" href="/app/styles/styles.css">
-            <!-- endinject -->
-        </head>
-
-        <body ng-controller="WeatherController as vm">
-        <!-- <pre>{{vm.Weather | json}}</pre> -->
-        <div class="container header">
-          <h1>Origin Weather Application</h1>
-          <p>Always know if you'll need an umbrella!</p>
-        </div>
-
-        <div class="container">
-          <!-- Form group to search pre-filled cities -->
-          <div class="btn-group">
+<body ng-controller="WeatherController as vm">
+    <!-- <pre>{{vm.Weather | json}}</pre> -->
+    <div class="container header">
+        <h1>Origin Weather Application</h1>
+        <p>Always know if you'll need an umbrella!</p>
+    </div>
+    <div class="container">
+        <!-- Form group to search pre-filled cities -->
+        <div class="btn-group">
             <button type="button" class="btn btn-primary" ng-click="vm.getWeather('San Diego')">San Diego</button>
             <button type="button" class="btn btn-primary" ng-click="vm.getWeather('New York')">New York</button>
             <button type="button" class="btn btn-primary" ng-click="vm.getWeather('Washington D.C.')">Washington D.C.</button>
             <button type="button" class="btn btn-primary" ng-click="vm.getWeather('London')">London</button>
             <button type="button" class="btn btn-primary" ng-click="vm.getWeather('Tokyo')">Tokyo</button>
-          </div>
-
-          <!-- Search city -->
+        </div>
+        <!-- Search city -->
+        <form class="weatherFinder">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for city..." ng-model="vm.city.name">
-            <span class="input-group-btn">
-              <button class="btn btn-secondary" type="button" ng-click="vm.getWeather(vm.city.name)">Go!</button>
-            </span>
+              <input type="text" class="form-control" placeholder="Search for city..." ng-model="vm.city.name" required />
+              <span class="input-group-btn">
+                <button class="btn btn-secondary" type="button" ng-click="weatherFinder.$valid && vm.getWeather(vm.city.name.$valid)">Go!</button>
+              </span>
           </div>
-          <br />
-          <div class="container">
+        </form>
+        <br />
+        <div class="container">
             <div class="row">
-              <div class="col-md-6">
-                <div class="panel panel-primary">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">City Information</h3>
-                  </div>
-                  <div class="panel-body">
-                    <div class="row text-center">
-                      <img ng-src="images/{{vm.weather.weather[0].icon}}.png">
-                      <p style="font-size: 18pt">{{vm.weather.name}}</p>
-                      <p class="title">Lat/Lng:</p>
-                      <p class="weatherOutput">{{vm.weather.coord.lat}}, {{vm.weather.coord.lon}}</p>
+                <div class="col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">City Information</h3>
+                        </div>
+                        <div class="panel-body">
+                          <button class="btn btn-primary" ng-click="vm.convertAllToC(vm.convertToC)" ng-hide="vm.showTempC">Convert to C</button>
+
+                            <div class="row text-center">
+                                <img ng-src="images/{{vm.weather.weather[0].icon}}.png">
+                                <p style="font-size: 18pt">{{vm.weather.name}}</p>
+                                <p class="title">Lat/Lng:</p>
+                                <p class="weatherOutput">{{vm.weather.coord.lat}}, {{vm.weather.coord.lon}}</p>
+                            </div>
+                            <div class="row text-center">
+                                <div class="col-lg-4">
+                                    <p class="title">Temperature</p>
+                                    <p class="weatherOutput">{{vm.weather.main.temp}}</p>
+                                </div>
+                                <div class="col-lg-4">
+                                    <p class="title">Pressure</p>
+                                    <p class="weatherOutput">{{vm.weather.main.pressure}}</p>
+                                </div>
+                                <div class="col-lg-4">
+                                    <p class="title">Humidity</p>
+                                    <p class="weatherOutput">{{vm.weather.main.humidity}}</p>
+                                </div>
+                            </div>
+                            <div class="row text-center">
+                                <div class="col-lg-4">
+                                    <p class="title">Lowest Temp(F)</p>
+                                    <p class="weatherOutput">{{vm.weather.main.temp_min}}</p>
+                                </div>
+                                <div class="col-lg-4">
+                                    <p class="title">Highest Temp(F)</p>
+                                    <p class="weatherOutput">{{vm.weather.main.temp_max}}</p>
+                                </div>
+                                <div class="col-lg-4">
+                                    <p class="title">Wind Speed</p>
+                                    <p class="weatherOutput">{{vm.weather.wind.speed}}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="row">
-                      <div class="col-lg-4">
-                        <p class="title">Temperature</p>
-                        <p class="weatherOutput">{{vm.weather.main.temp}}</p>
-                      </div>
-                      <div class="col-lg-4">
-                        <p class="title">Pressure</p>
-                        <p class="weatherOutput">{{vm.weather.main.pressure}}</p>
-                      </div>
-                      <div class="col-lg-4">
-                        <p class="title">Humidity</p>
-                        <p class="weatherOutput">{{vm.weather.main.humidity}}</p>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-lg-4">
-                        <p class="title">Lowest Temp(F)</p>
-                        <p class="weatherOutput">{{vm.weather.main.temp_min}}</p>
-                      </div>
-                      <div class="col-lg-4">
-                        <p class="title">Highest Temp(F)</p>
-                        <p class="weatherOutput">{{vm.weather.main.temp_max}}</p>
-                      </div>
-                      <div class="col-lg-4">
-                        <p class="title">Wind Speed</p>
-                        <p class="weatherOutput">{{vm.weather.wind.speed}}</p>
-                      </div>
-                    </div>
-                  </div>
                 </div>
-              </div>
-              <div class="col-md-6">
-                <div class="panel panel-primary">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">Search History</h3>
-                  </div>
-                  <div class="panel-body">
-                    <div class="row searchResult" ng-repeat="search in vm.search">
-                      <div class="col-lg-6">
-                        <p>{{search.city}}</p>
-                      </div>
-                      <div class="col-lg-6">
-                        <p>{{search.time}}</p>
-                      </div>
+                <div class="col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Search History</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row searchResult" ng-repeat="search in vm.search">
+                                <div class="col-lg-6">
+                                    <p>{{search.city}}</p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <p>{{search.time}}</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
+        </div>
+    </div>
 
+    <!-- bower:js -->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/angular-momentjs/angular-momentjs.js"></script>
+    <script src="bower_components/angular-bootstrap-toggle/dist/angular-bootstrap-toggle.min.js"></script>
+    <!-- endbower -->
+    <!-- inject:js -->
+    <script src="/app/app.js"></script>
+    <script src="/app/weather.controller.js"></script>
+    <script src="/app/weather.factory.js"></script>
+    <!-- endinject -->
+</body>
 
-      </div>
-
-            <!-- bower:js -->
-            <script src="bower_components/angular/angular.js"></script>
-            <script src="bower_components/jquery/dist/jquery.js"></script>
-            <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-            <script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
-            <script src="bower_components/moment/moment.js"></script>
-            <script src="bower_components/angular-momentjs/angular-momentjs.js"></script>
-            <!-- endbower -->
-            <!-- inject:js -->
-            <script src="/app/app.js"></script>
-            <script src="/app/weather.controller.js"></script>
-            <script src="/app/weather.factory.js"></script>
-            <!-- endinject -->
-        </body>
 </html>
