@@ -15,8 +15,10 @@
 }
 
 .searchResult {
-  background-color: #D3D3D3;
+  background-color: #128683;
+  color: #fff;
   border-bottom: 1px solid;
+  border-radius: 4px;
   margin: 0 auto;
   padding: 5px;
 }

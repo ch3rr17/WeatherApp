@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="weatherApp">
+
 <head>
     <meta charset="UTF-8">
     <title>Weather App</title>
@@ -29,13 +30,14 @@
             <button type="button" class="btn btn-primary" ng-click="vm.getWeather('Tokyo')">Tokyo</button>
         </div>
         <!-- Search city -->
-        <form class="weatherFinder">
-          <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search for city..." ng-model="vm.city.name" required />
-              <span class="input-group-btn">
-                <button class="btn btn-secondary" type="button" ng-click="weatherFinder.$valid && vm.getWeather(vm.city.name.$valid)">Go!</button>
+        <form class="weatherFinder" ng-submit="vm.getWeather(vm.city.name.$valid)">
+            <div class="input-group">
+                <input type="text" name="city" class="form-control" placeholder="Search for city..." ng-model="vm.city.name" required />
+                <span ng-show="form.city.$error.required">You must enter a city name.</span>
+                <span class="input-group-btn">
+                <button class="btn btn-secondary" type="submit">Go!</button>
               </span>
-          </div>
+            </div>
         </form>
         <br />
         <div class="container">
@@ -46,8 +48,10 @@
                             <h3 class="panel-title">City Information</h3>
                         </div>
                         <div class="panel-body">
-                          <button class="btn btn-primary" ng-click="vm.convertAllToC(vm.convertToC)" ng-hide="vm.showTempC">Convert to C</button>
-
+                            <div ng-switch on="vm.showTempC">
+                                <button class="btn btn-primary" ng-switch-when='true' ng-click="vm.showTempC=!vm.showTempC">C</button>
+                                <button class="btn btn-primary" ng-switch-when='true' ng-click="">F</button>
+                            </div>
                             <div class="row text-center">
                                 <img ng-src="images/{{vm.weather.weather[0].icon}}.png">
                                 <p style="font-size: 18pt">{{vm.weather.name}}</p>
@@ -98,6 +102,9 @@
                                 <div class="col-lg-6">
                                     <p>{{search.time}}</p>
                                 </div>
+                                <div class="col-lg-6">
+                                    <p>{{search.temperature}}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -105,7 +112,6 @@
             </div>
         </div>
     </div>
-
     <!-- bower:js -->
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/jquery/dist/jquery.js"></script>

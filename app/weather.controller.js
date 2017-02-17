@@ -14,7 +14,7 @@
         //array to hold search input
         vm.search = [];
 
-        vm.showTempC = false;
+        vm.showTempC = true;
 
         //Convert current temp from F to C
         vm.convertToC = function(temp) {
@@ -38,7 +38,7 @@
                         vm.city = {
                             name: city
                         };
-                        vm.city.time = moment().format('MMMM Do YYYY, h:mm:ss a');
+                        vm.city.time = moment().format('MMMM Do YYYY, h:mm A');
                         vm.search.push({
                             'city': vm.city.name,
                             'time': vm.city.time
