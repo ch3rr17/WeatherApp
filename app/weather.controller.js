@@ -35,6 +35,7 @@
                 .then(
                     function(response) {
                         vm.weather = response.data;
+                        console.log(vm.weather);
                         vm.city = {
                             name: city
                         };
@@ -43,14 +44,14 @@
                             'city': vm.city.name,
                             'time': vm.city.time
                         });
-                        vm.city.name = ''; //empty input box once done with city search
+                        //vm.city.name = ''; //empty input box once done with city search
                     },
                     function(error) {
                         $log.error(error);
                     }
                 );
         }
-        vm.getWeather('San Diego'); //Default weather as San Diego
+        vm.getWeather('Tokyo'); //Default weather as San Diego
 
     }
 })();

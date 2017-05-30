@@ -30,7 +30,7 @@
             <button type="button" class="btn btn-primary" ng-click="vm.getWeather('Tokyo')">Tokyo</button>
         </div>
         <!-- Search city -->
-        <form class="weatherFinder" ng-submit="vm.getWeather(vm.city.name.$valid)">
+        <form class="weatherFinder" ng-submit="vm.getWeather(vm.city.name)">
             <div class="input-group">
                 <input type="text" name="city" class="form-control" placeholder="Search for city..." ng-model="vm.city.name" required />
                 <span ng-show="form.city.$error.required">You must enter a city name.</span>
@@ -120,6 +120,7 @@
     <script src="bower_components/moment/moment.js"></script>
     <script src="bower_components/angular-momentjs/angular-momentjs.js"></script>
     <script src="bower_components/angular-bootstrap-toggle/dist/angular-bootstrap-toggle.min.js"></script>
+    <script src="bower_components/angular-mocks/angular-mocks.js"></script>
     <!-- endbower -->
     <!-- inject:js -->
     <script src="/app/app.js"></script>

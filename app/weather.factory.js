@@ -36,7 +36,8 @@
                         toastr.success("We've got weather!");
                     },
                     function(error) {
-                        defer.reject(error.data);
+                        defer.reject(error);
+                        $log.error(error);
                         toastr.warning("No weather found!");
                     }
                 );
